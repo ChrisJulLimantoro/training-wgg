@@ -15,8 +15,8 @@ use App\Http\Controllers\studentController;
 |
 */
 
-// Route::get('/students', [studentController::class, 'index'])->name('students.index');
-Route::get('/students', function() {
+Route::get('/students', [studentController::class, 'index'])->name('students.index');
+Route::get('/students', function () {
     return response()->json([
         'message' => 'Hello World'
     ], 200);
