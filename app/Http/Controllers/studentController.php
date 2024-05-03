@@ -19,18 +19,21 @@ class studentController extends Controller
     }
 
     public function store(Request $request){
-        $val = Validator::make($request->only(['nrp','name','address']),[
+        $data = $request->only(['nrp','name','address']);
+        $rules = [
             'nrp' => 'required|min:5',
             'name' => 'required|min:5',
             'address' => 'required|min:10'
-        ],[
+        ];
+        $messages = [
             'nrp.required' => 'NRP wajib diisi',
             'nrp.min' => 'NRP minimal 5 karakter',
             'name.required' => 'Nama wajib diisi',
             'name.min' => 'Nama minimal 5 karakter',
             'address.required' => 'Alamat wajib diisi',
             'address.min' => 'Alamat minimal 10 karakter'
-        ]);
+        ];
+        $val = Validator::make($data, $rules, $messages);
 
         if($val->fails()){
             return response()->json($val->errors(), 420);

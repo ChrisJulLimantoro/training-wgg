@@ -20,8 +20,8 @@ class studentSeeder extends Seeder
             ],
             [
                 'nrp' => 'c14210025',
-                'name' => 'Darrell Cornellius',
                 'address' => 'Jl. Lorem Ipsum Dolor Sit Amet',
+                'name' => 'Darrell Cornellius',
             ],
         ];
 

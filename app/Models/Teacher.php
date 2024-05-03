@@ -6,27 +6,27 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Teacher extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $table = "students";
-
-    // yg bisa diedit
     protected $fillable = [
-        'nrp',
+        'nip',
         'name',
         'address',
+        'phone',
+        'salary',
+        'entry_date',
+        'student_id',
     ];
 
-    // yg ga muncul ketika di query/fetch
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
 
-    public function teachers()
+    public function student()
     {
-        return $this->hasMany(Teacher::class, 'student_id', 'id');
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 }
