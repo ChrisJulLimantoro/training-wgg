@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
 
 class studentController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $student = Student::all();
-        return response()->json($student,200,[
+        return response()->json($student, 200, [
             'Content-Type' => 'application/json',
             'allowed_methods' => 'GET, POST, PUT, DELETE',
             'allowed_origins' => '*',
@@ -18,8 +20,9 @@ class studentController extends Controller
         ]);
     }
 
-    public function store(Request $request){
-        $data = $request->only(['nrp','name','address']);
+    public function store(Request $request)
+    {
+        $data = $request->only(['nrp', 'name', 'address']);
         $rules = [
             'nrp' => 'required|min:5',
             'name' => 'required|min:5',
@@ -35,26 +38,34 @@ class studentController extends Controller
         ];
         $val = Validator::make($data, $rules, $messages);
 
-        if($val->fails()){
+        if ($val->fails()) {
             return response()->json($val->errors(), 420);
         }
-        $student = Student::create($request->only(['nrp','name','address']));
+        $student = Student::create($request->only(['nrp', 'name', 'address']));
         return response()->json([
             'message' => 'Data mahasiswa berhasil ditambahkan'
-        ],200);
+        ], 200);
     }
 
-    public function edit(Request $request, $id){
+    public function edit(Request $request, $id)
+    {
         $student = Student::find($id);
         $student->update($request->all());
-        return response()->json($student,200);
+        return response()->json($student, 200);
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $student = Student::find($id);
         $student->delete();
         return response()->json([
             'message' => 'Data mahasiswa berhasil dihapus'
-        ],200);
+        ], 200);
+    }
+
+    public function joinCourse()
+    {
+        $students = Student::all();
+        return view('join-course', ['students' => $students]);
     }
 }

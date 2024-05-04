@@ -28,3 +28,4 @@ Route::post('/students', [studentController::class, 'store'])->name('students.st
 Route::patch('/students/{id}', [studentController::class, 'edit'])->name('students.edit');
 Route::delete('/students/{id}', [studentController::class, 'destroy'])->name('students.destroy');
 
+Route::get('/join-course', [StudentController::class, 'joinCourse'])->name('students.joinCourse');
